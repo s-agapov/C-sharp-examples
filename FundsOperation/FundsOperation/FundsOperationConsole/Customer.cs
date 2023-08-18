@@ -18,5 +18,10 @@ namespace FundsOperationConsole
 
             else { return false; }
         }
+
+        public override string ToString()
+        {
+            return "Name: " + Name + "   PIN: " + PIN;
+        }
     }
 }
