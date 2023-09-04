@@ -8,39 +8,44 @@ namespace FundsOperationConsole
 {
     internal class CustomerLocator
     {
-        public List<Customer> customers;
+        public List<Customer> customers = new();
+        public string Path { get; init; }
+        private StreamReader textIn;
 
-        //Читаем список пользователей из базы
-        public void readCustomers(string path)
+        public CustomerLocator(string path)
         {
             if (File.Exists(path))
             {
-
-                Console.WriteLine("Открываем файл");
+                //Console.WriteLine("Открываем файл");
                 FileStream fs = new(path, FileMode.Open, FileAccess.Read);
-                StreamReader textIn = new(fs);
-
-                while (textIn.Peek() != -1)
-                {
-                    string row = textIn.ReadLine();
-                    string[] columns = row.Split(',');
-                    Console.WriteLine(row);
-
-                    Customer customer = new();
-                    customer.Name = columns[0];
-                    customer.PIN = columns[1];
-                    customers.Add(customer);
-
-                    customers.Add(new Customer() { Name = columns[0], PIN = columns[1] });
-
-                }
+                textIn = new(fs);
+                Path = path;
             }
+
         }
 
-        //Находим по имени
-        public Customer? findByName(string name)
+        //Читаем список пользователей из базы
+        public void readCustomers()
         {
-            return customers.Find(x => x.Name == name);
+            while (textIn.Peek() != -1)
+            {
+                string row = textIn.ReadLine();
+                string[] columns = row.Split(',');
+              //  Console.WriteLine(row);
+
+                Customer customer = new();
+                customer.ID = columns[0];
+                customer.Name = columns[1];
+                customers.Add(customer);
+
+            }
+
+        }
+
+        public Customer? findByID(string id)
+        {
+            return customers.Find(x => x.ID == id);
         }
     }
+
 }

@@ -8,5 +8,6 @@ namespace FundsOperationConsole
 {
     internal class AccountLocator
     {
+ 
     }
 }

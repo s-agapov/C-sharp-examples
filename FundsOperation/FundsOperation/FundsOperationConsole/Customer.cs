@@ -10,18 +10,19 @@ namespace FundsOperationConsole
     internal class Customer
     {
         public string Name { get; set; }
-        public string PIN { get; set; }
+        public string ID { get; set; }
 
         public bool validatePIN(string pin)
         {
-            if (pin == PIN) { return true; }
+            if (pin == ID.Substring(3,3))
+            { return true; }
 
             else { return false; }
         }
 
         public override string ToString()
         {
-            return "Name: " + Name + "   PIN: " + PIN;
+            return "Name: " + Name + "   ID: " + ID;
         }
     }
 }
